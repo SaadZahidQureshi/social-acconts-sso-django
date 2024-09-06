@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google'
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
 ]
 
 SOCIAL_ACCOUNT_PROVIDER = {
@@ -56,8 +57,37 @@ SOCIAL_ACCOUNT_PROVIDER = {
         "AUTH_PARAMS": {
             "access_type": "online"
         }
-    }
+    },
+     "facebook": {
+        "METHOD": "oauth2",
+        "SCOPE": ["email", "public_profile"],
+        "AUTH_PARAMS": {"auth_type": "reauthenticate"},
+        "FIELDS": [
+            "id",
+            "email",
+            "name",
+            "first_name",
+            "last_name",
+            "middle_name",
+            "name_format",
+            "picture",
+            "short_name",
+        ],
+        "EXCHANGE_TOKEN": True,
+        "LOCALE_FUNC": lambda request: "en_US",
+        "VERIFIED_EMAIL": False,
+        "VERSION": "v12.0",
+    },
 }
+
+
+
+SOCIAL_ACCOUNT_PROVIDER["facebook"]["APP"] = {
+    "client_id": "487837480766319",
+    "secret": "cf891993d8b50e3da686cdaa59dced35",
+    "key": "",
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -151,3 +181,4 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
+
