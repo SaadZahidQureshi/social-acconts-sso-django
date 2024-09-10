@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,8 +86,8 @@ SOCIAL_ACCOUNT_PROVIDER = {
 
 
 SOCIAL_ACCOUNT_PROVIDER["facebook"]["APP"] = {
-    "client_id": "487837480766319",
-    "secret": "cf891993d8b50e3da686cdaa59dced35",
+    "client_id": os.getenv('CLIENT_ID'),
+    "secret": os.getenv('FB_SECRET'),
     "key": "",
 }
 
